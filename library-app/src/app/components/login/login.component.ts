@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { userService } from '../../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { loginResult } from '../../app/interfaces/interfaces';
+import { log } from 'console';
 
 
 
@@ -36,6 +37,25 @@ export class LoginComponent {
     this._userService.loginService(this.username, this.password).subscribe((dataResponse: any) => {
       console.log('Respuesta del servicio login:', dataResponse);
       this.results = dataResponse;
+      localStorage.setItem('refresh', dataResponse.refresh);
+      localStorage.setItem('access', dataResponse.access);
+      const accessExpiration = new Date(Date.now() + 10 * 60 * 1000); // 10 minutos
+      const refreshExpiration = new Date(Date.now() + 8 * 24 * 60 * 60 * 1000); // 8 días
+      this._userService.refreshService(dataResponse.refresh).subscribe((refreshResponse: any) => {
+        console.log("Nuevo token:", refreshResponse);
+        localStorage.setItem('access', refreshResponse.access);
+        this._userService.verifyService(dataResponse.access).subscribe((tokenResponse: any) => {
+          console.log("Token verificado:", tokenResponse);
+
+        }, (error: any) => {
+          console.log("error token", error);
+
+        });
+      }, (error: any) => {
+        console.log("error refresh", error);
+
+      });
+
     }, (error: any) => {
       this.error = true;
       this.text_error = error.error.detail;

@@ -60,7 +60,6 @@ export class BookService {
         });
         return this._http.post(this.api, body, { headers });
     }
-
     public putBookService(uid: string, title: string, year: number, pages: number, language: string, publisher: string, author: string[]) {
         const body = JSON.stringify({
             title: title,

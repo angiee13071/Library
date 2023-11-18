@@ -8,20 +8,23 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { userService } from './services/user.service';
 import { AuthorService } from './services/author.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { log } from 'console';
 import { BookService } from './services/book.service';
 import { PublisherService } from './services/publisher.service';
 import { CountryService } from './services/country.service';
+import { HomeComponent } from './components/home/home.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
 @Component({
   selector: 'app-root',
   standalone: true,
   // CommonModule, BrowserModule,
-  imports: [RouterOutlet, LoginComponent, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, LoginComponent, HeaderComponent, FooterComponent, HomeComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [userService, userService, BookService, PublisherService, CountryService],
-  // providers: [HttpClientModule]
+
 })
 export class AppComponent implements OnInit {
   private $skip = new Subject<void>();
