@@ -1,14 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+// import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { userService } from './services/user.service';
+import { AuthorService } from './services/author.service';
+import { Subject, takeUntil } from 'rxjs';
+import { log } from 'console';
+import { BookService } from './services/book.service';
+import { PublisherService } from './services/publisher.service';
+import { CountryService } from './services/country.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  // CommonModule, BrowserModule,
+  imports: [RouterOutlet, LoginComponent, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [userService, userService, BookService, PublisherService, CountryService],
+  // providers: [HttpClientModule]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private $skip = new Subject<void>();
+  currentView: string = '';
+  constructor(private _router: Router,) {
+
+  }
+  ngOnInit(): void {
+    // this._router.events.pipe(takeUntil(this.$skip)).subscribe((event) => {
+    //   if (event instanceof NavigationEnd) this.currentView = event.url;
+    //   console.log(this.currentView);
+
+    // });
+  }
   title = 'library-app';
 }

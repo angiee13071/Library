@@ -1,0 +1,43 @@
+.login-container{
+height: calc(70vh);
+display: flex;
+flex-direction: column;
+gap: 2rem;
+align-items: center;
+justify-content: center;
+}
+.title-login{
+font-size: 3rem;
+color: #012060;
+font-weight: 500;
+}
+.form-container{
+display: flex;
+flex-direction: column;
+gap: .8rem;
+width: 45%;
+}
+.error{
+    color: rgb(201, 69, 48);
+}
+label{
+    font-size: x-large;
+    color: #012060;
+    font-weight: 500;
+}
+input{
+    font-size: x-large;
+    color: #012060;
+    font-weight: 500;
+}
+button{
+    font-size: x-large;
+    background-color:  #012060;
+    color: #ffff;
+    font-weight: 500;
+    border: 1px solid #adadad;
+    height: 3rem;
+    padding: .5rem;
+    border-radius: 0.5rem;
+   
+}
